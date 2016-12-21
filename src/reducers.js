@@ -6,6 +6,7 @@ const {
   ADD_ITEM,
   TOGGLE_ITEM,
   REMOVE_ITEM,
+  REQUEST_ITEM,
   RECEIVE_ITEM,
   SET_VISIBILITY_FILTER,
   visibilityFilters
@@ -29,6 +30,17 @@ function items (state = [], action) {
   }
 }
 
+function isLoading (state = false, action) {
+    switch (action.type) {
+        case REQUEST_ITEM:
+           return true;
+        case RECEIVE_ITEM:
+           return false;
+        default:
+           return state
+    }
+}
+
 // `state` is just the visibility filter
 function visibilityFilter (state = visibilityFilters.SHOW_ALL, action) {
   switch (action.type) {
@@ -40,4 +52,4 @@ function visibilityFilter (state = visibilityFilters.SHOW_ALL, action) {
 }
 
 // Export a reducer function that combines the above reducers
-module.exports = redux.combineReducers({ items, visibilityFilter });
+module.exports = redux.combineReducers({ items, visibilityFilter, isLoading });
